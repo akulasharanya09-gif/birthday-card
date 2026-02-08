@@ -8,15 +8,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <style>
     body {
-      box-sizing: border-box;
-      margin: 0;
-      font-family: 'Caveat', cursive;
-      overflow-x: hidden;
-      background: linear-gradient(135deg, #f5f0e6 0%, #fce4e1 100%);
+      margin:0; box-sizing:border-box; font-family:'Caveat',cursive; overflow-x:hidden;
+      background: linear-gradient(135deg,#fce4e1 0%,#f5f0e6 100%);
     }
-
-    .font-handwritten { font-family: 'Caveat', cursive; }
-    .font-elegant { font-family: 'Playfair Display', serif; }
+    .font-handwritten { font-family:'Caveat',cursive; }
+    .font-elegant { font-family:'Playfair Display',serif; }
 
     /* Animations */
     @keyframes float { 0%,100%{transform:translateY(0) rotate(-2deg);}50%{transform:translateY(-10px) rotate(2deg);} }
@@ -27,57 +23,31 @@
     @keyframes slideInUp {0%{transform:translateY(120vh);opacity:0;}100%{transform:translateY(0);opacity:1;} }
     @keyframes confetti-fall {0%{transform:translateY(-100%) rotate(0deg);opacity:1;}100%{transform:translateY(100%) rotate(720deg);opacity:0;}}
 
-    /* Core styles */
     .envelope-float { animation: float 3s ease-in-out infinite; cursor:pointer; }
     .sparkle { animation: sparkle 3s ease-in-out infinite; position:absolute; font-size:1.2rem; color:#c41e3a; }
     .heartbeat { animation: heartbeat 1.5s ease-in-out infinite; }
-    .envelope-flap { transform-origin: center center; transform-style: preserve-3d; perspective: 1200px; }
+    .envelope-flap { transform-origin:center center; transform-style:preserve-3d; perspective:1200px; }
     .envelope-animating .envelope-flap { animation: flapOpen 2s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
     .envelope-animating #envelope-page { animation: slideOutDown 2.2s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
     #card-container.showing { animation: slideInUp 2s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
 
     .confetti { width:10px;height:10px;position:absolute;opacity:0;border-radius:50%; }
 
-    /* Envelope Styling */
-    #envelope {
-      width: 320px; height: 240px;
-      position: relative;
-    }
-    #envelope-body {
-      width: 100%; height: 100%;
-      border-radius: 8px;
-      background: linear-gradient(135deg, #fce4e1 0%, #f5f0e6 100%);
-      border: 2px solid #c41e3a;
-      box-shadow: 0 6px 12px rgba(196,30,58,0.3);
-      position: relative;
-      overflow: hidden;
-    }
-    #envelope-flap-svg {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 120px;
-      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
-    }
-    .wax-seal {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%,-50%) rotate(10deg);
-      width: 80px; height: 80px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 35% 35%, #ff4d4d, #c41e3a 50%, #8b0000 100%);
-      box-shadow: inset -2px -2px 4px rgba(0,0,0,0.3), 0 4px 8px rgba(0,0,0,0.4);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .wax-seal::after {
-      content:"✦";
-      color: rgba(255,255,255,0.6);
-      font-size: 24px;
-    }
+    /* Envelope */
+    #envelope { width:320px;height:240px; position:relative; }
+    #envelope-body { width:100%;height:100%; border-radius:8px; background:linear-gradient(135deg,#fce4e1 0%,#f5f0e6 100%); border:2px solid #c41e3a; box-shadow:0 6px 12px rgba(196,30,58,0.3); position:relative; overflow:hidden; }
+    #envelope-flap-svg { position:absolute; top:0; left:0; width:100%; height:120px; filter:drop-shadow(0 4px 6px rgba(0,0,0,0.2)); }
+    .wax-seal { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) rotate(10deg); width:80px; height:80px; border-radius:50%; background:radial-gradient(circle at 35% 35%, #ff4d4d, #c41e3a 50%, #8b0000 100%); box-shadow: inset -2px -2px 4px rgba(0,0,0,0.3),0 4px 8px rgba(0,0,0,0.4); display:flex; align-items:center; justify-content:center; }
+    .wax-seal::after { content:"✦"; color:rgba(255,255,255,0.6); font-size:24px; }
+
+    /* Page backgrounds */
+    .page { min-height:100vh; padding:2rem; background:linear-gradient(135deg,#fce4e1 0%,#f5f0e6 100%); transition:opacity 0.5s ease,transform 0.5s ease; }
+    .hidden { display:none; }
   </style>
 </head>
 <body class="h-full relative">
 
-<!-- Magical sparkles -->
+<!-- Sparkles -->
 <div id="magic-sparkles"></div>
 
 <div id="app" class="w-full h-full overflow-auto">
@@ -106,22 +76,75 @@
     </div>
   </div>
 
-  <!-- Card Pages (Pages 1–4 same as previous code) -->
+  <!-- Card Pages -->
   <div id="card-container" class="hidden w-full min-h-screen relative">
 
-    <!-- Page 1 -->
-    <div id="page-1" class="page hidden w-full min-h-screen flex flex-col items-center justify-center p-8 text-center">
-      <h1 class="font-elegant text-5xl text-gray-900 mb-6">Happy Birthday<br>
+    <!-- Page 1: Greeting -->
+    <div id="page-1" class="page hidden flex flex-col items-center justify-center text-center">
+      <h1 class="font-elegant text-5xl mb-6">Happy Birthday<br>
         <span id="recipient-display" class="text-6xl text-red-700">Gayathri Akkaaa!!!</span>
       </h1>
-      <div class="flex justify-center gap-3 text-4xl">
-        🎂 🎉 🎁 🎈
-      </div>
-      <button onclick="nextPage(2)" class="mt-8 px-4 py-2 font-handwritten text-xl text-white rounded-full shadow-lg" style="background: linear-gradient(135deg, #c41e3a 0%, #a01830 100%)">Continue → 💌</button>
+      <div class="flex justify-center gap-3 text-4xl">🎂 🎉 🎁 🎈</div>
+      <button onclick="nextPage(2)" class="mt-8 px-4 py-2 font-handwritten text-xl text-white rounded-full shadow-lg" style="background: linear-gradient(135deg,#c41e3a 0%,#a01830 100%)">Continue → 💌</button>
     </div>
 
-    <!-- Pages 2–4 are the same as in previous code -->
-    <!-- Add your letter, gallery, final message here as in the last version -->
+    <!-- Page 2: Letter + photo reel -->
+    <div id="page-2" class="page hidden">
+      <div class="flex flex-col md:flex-row max-w-5xl mx-auto gap-6">
+        <!-- Letter -->
+        <div class="flex-1 p-6 rounded-2xl shadow-xl mb-6 md:mb-0" style="background: linear-gradient(145deg,#fce4e1 0%,#f5f0e6 100%); border:2px solid #c41e3a;">
+          <h2 class="font-elegant text-2xl text-gray-900 text-center mb-4">💌 A Letter For You</h2>
+          <div class="font-handwritten text-xl text-gray-800 leading-relaxed space-y-4" id="letter-display">
+            <p>Dearest Gayathri Akka,</p>
+            <p>On your special day, I wanted to tell you how much you mean to us. You're not just our akka, you're our friend, our guide, and our biggest cheerleader! 💕</p>
+            <p>Every moment spent with you is filled with laughter, love, and unforgettable memories. You make everything brighter just by being you!</p>
+            <p>Thank you for always being there, for your endless patience, and for showing me what it means to be kind and strong.</p>
+            <p>Wishing you all the happiness in the world today and always! 🌟</p>
+            <p class="text-right mt-6">With all our love,<br>Laasya and Sharanya 😉💗</p>
+          </div>
+        </div>
+        <!-- Photo Reel -->
+        <div class="w-full md:w-48 flex flex-col items-center">
+          <div class="reel-container w-full flex flex-col items-center gap-4">
+            <img src="Reel1.jpg" class="w-[160px] h-[160px] object-cover rounded-xl shadow-lg" />
+            <img src="Reel2.jpg" class="w-[160px] h-[160px] object-cover rounded-xl shadow-lg" />
+            <img src="Reel3.jpg" class="w-[160px] h-[160px] object-cover rounded-xl shadow-lg" />
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-6">
+        <button onclick="nextPage(3)" class="font-handwritten text-xl text-gray-700 hover:text-gray-900 transition-colors">See more memories → 📸</button>
+      </div>
+    </div>
+
+    <!-- Page 3: Photo gallery -->
+    <div id="page-3" class="page hidden">
+      <h2 class="font-elegant text-3xl text-center text-gray-900 mb-6">Our Beautiful Memories 💕</h2>
+      <div class="grid grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <img src="memory1.jpg" class="w-full aspect-square object-cover rounded-lg shadow-md" />
+        <img src="memory2.jpg" class="w-full aspect-square object-cover rounded-lg shadow-md" />
+        <img src="memory3.jpg" class="w-full aspect-square object-cover rounded-lg shadow-md" />
+        <img src="memory4.jpg" class="w-full aspect-square object-cover rounded-lg shadow-md" />
+      </div>
+      <div class="text-center mt-6">
+        <button onclick="nextPage(4)" class="font-handwritten text-xl text-gray-700 hover:text-gray-900 transition-colors">One more surprise → 🎁</button>
+      </div>
+    </div>
+
+    <!-- Page 4: Final messages -->
+    <div id="page-4" class="page hidden">
+      <h2 class="font-elegant text-3xl text-center text-gray-900 mb-4">Birthday Wishes 🎂</h2>
+      <div class="space-y-4 max-w-3xl mx-auto">
+        <div class="p-5 rounded-xl shadow-lg transform hover:scale-102 transition-transform" style="background: linear-gradient(145deg,#fce4e1 0%,#f5f0e6 100%); border:2px solid #c41e3a;">
+          <div class="flex items-start gap-3"><span class="text-2xl">🌟</span>
+            <p class="font-handwritten text-xl text-gray-800">May your year ahead be as beautiful and bright as your smile! Keep shining, akka!</p>
+          </div>
+        </div>
+        <div class="text-center mt-8">
+          <button onclick="restart()" class="px-6 py-3 rounded-full font-handwritten text-xl text-white shadow-lg" style="background: linear-gradient(135deg,#c41e3a 0%,#a01830 100%)"> 🔄 Watch Again </button>
+        </div>
+      </div>
+    </div>
 
   </div>
 </div>
@@ -140,7 +163,7 @@
   function nextPage(n){document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden')); document.getElementById(`page-${n}`).classList.remove('hidden'); window.scrollTo({top:0,behavior:'smooth'});}
   function restart(){envelopeOpened=false;document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));document.getElementById('card-container').classList.add('hidden');document.getElementById('card-container').classList.remove('showing');document.getElementById('envelope-page').classList.remove('hidden');document.getElementById('envelope').classList.add('envelope-float');}
 
-  // Magical sparkles
+  // Sparkles
   const sparkleContainer=document.getElementById('magic-sparkles');
   for(let i=0;i<50;i++){
     const s=document.createElement('div'); s.className='sparkle'; s.style.left=Math.random()*100+'%'; s.style.top=Math.random()*100+'%'; s.style.fontSize=(10+Math.random()*20)+'px'; s.style.animationDelay=Math.random()*5+'s'; s.textContent='✨'; sparkleContainer.appendChild(s);
