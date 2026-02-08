@@ -286,80 +286,92 @@
        </div>
       </div><!-- Right: Photo Reel -->
       <div class="w-full md:w-48 flex flex-col items-center">
-       <div class="reel-container w-full"><!-- Film holes top -->
-        <div class="flex justify-between px-2 mb-2">
-         <div class="reel-hole"></div>
-         <div class="reel-hole"></div>
-         <div class="reel-hole"></div>
-         <div class="reel-hole"></div>
-        </div><!-- Photo 1 -->
-        <img src="Reel1.jpg"
-     class="max-w-[160px] w-[160px] h-[160px] object-contain rounded-xl mb-4 shadow-lg mx-auto" />
 
-        </div><!-- Film holes -->
-        <div class="flex justify-between px-2 mb-2">
-         <div class="reel-hole"></div>
-         <div class="reel-hole"></div>
-         <div class="reel-hole"></div>
-         <div class="reel-hole"></div>
-        </div><!-- Photo 2 -->
-        <img src="Reel2.jpg"
-     class="max-w-[160px] w-[160px] h-[160px] object-cover rounded-xl mb-4 shadow-lg mx-auto" />
+  <div class="reel-container w-full">
 
-        </div><!-- Film holes -->
-        <div class="flex justify-between px-2 mb-2">
-         <div class="reel-hole"></div>
-         <div class="reel-hole"></div>
-         <div class="reel-hole"></div>
-         <div class="reel-hole"></div>
-        </div><!-- Photo 3 -->
-        <img src="Reel3.jpg"
-     class="max-w-[160px] w-[160px] h-[160px] object-contain rounded-xl mb-4 shadow-lg mx-auto" />
+    <!-- Top holes -->
+    <div class="flex justify-between px-2 mb-2">
+      <div class="reel-hole"></div><div class="reel-hole"></div>
+      <div class="reel-hole"></div><div class="reel-hole"></div>
+    </div>
 
-        </div><!-- Film holes bottom -->
-        <div class="flex justify-between px-2">
-         <div class="reel-hole"></div>
-         <div class="reel-hole"></div>
-         <div class="reel-hole"></div>
-         <div class="reel-hole"></div>
-        </div>
-       </div>
-      </div>
-     </div>
+    <!-- Reel 1 -->
+    <img src="Reel1.jpg"
+      class="w-[160px] h-[160px] object-contain rounded-xl mb-4 shadow-lg mx-auto" />
+
+    <!-- Holes -->
+    <div class="flex justify-between px-2 mb-2">
+      <div class="reel-hole"></div><div class="reel-hole"></div>
+      <div class="reel-hole"></div><div class="reel-hole"></div>
+    </div>
+
+    <!-- Reel 2 -->
+    <img src="Reel2.jpg"
+      class="w-[160px] h-[160px] object-contain rounded-xl mb-4 shadow-lg mx-auto" />
+
+    <!-- Holes -->
+    <div class="flex justify-between px-2 mb-2">
+      <div class="reel-hole"></div><div class="reel-hole"></div>
+      <div class="reel-hole"></div><div class="reel-hole"></div>
+    </div>
+
+    <!-- Reel 3 -->
+    <img src="Reel3.jpg"
+      class="w-[160px] h-[160px] object-contain rounded-xl mb-4 shadow-lg mx-auto" />
+
+    <!-- Bottom holes -->
+    <div class="flex justify-between px-2 mt-2">
+      <div class="reel-hole"></div><div class="reel-hole"></div>
+      <div class="reel-hole"></div><div class="reel-hole"></div>
+    </div>
+
+  </div>
+</div>
+
      <div class="text-center mt-6"><button onclick="nextPage(3)" class="font-handwritten text-xl text-gray-700 hover:text-gray-900 transition-colors"> See more memories → 📸 </button>
      </div>
     </div><!-- Page 3: Photo Gallery -->
+    <div id="page-3" class="page hidden w-full min-h-full p-6 page-transition">
+
+  <div class="w-full max-w-3xl mx-auto">
+
+    <div class="text-center mb-6">
+      <h2 class="font-elegant text-3xl font-bold text-gray-900">
+        Our Beautiful Memories 💕
+      </h2>
+    </div>
+
     <!-- Photo grid -->
-<div class="grid grid-cols-2 gap-6">
+    <div class="grid grid-cols-2 gap-6">
 
-  <!-- Photo 1 -->
-  <div class="relative">
-    <img src="memory1.jpg"
-         class="w-56 aspect-square object-contain rounded-lg shadow-md bg-white p-2" />
-    <div class="absolute -top-2 -right-2 text-xl">💗</div>
+      <div class="relative">
+        <img src="memory1.jpg"
+          class="w-full aspect-square object-contain rounded-lg shadow-md bg-white p-2" />
+        <div class="absolute -top-2 -right-2 text-xl">💗</div>
+      </div>
+
+      <div class="relative">
+        <img src="memory2.jpg"
+          class="w-full aspect-square object-contain rounded-lg shadow-md bg-white p-2" />
+        <div class="absolute -bottom-2 -left-2 text-xl">✨</div>
+      </div>
+
+      <div class="relative">
+        <img src="memory3.jpg"
+          class="w-full aspect-square object-contain rounded-lg shadow-md bg-white p-2" />
+        <div class="absolute -top-2 -left-2 text-lg">💋</div>
+      </div>
+
+      <div class="relative">
+        <img src="memory4.jpg"
+          class="w-full aspect-square object-contain rounded-lg shadow-md bg-white p-2" />
+      </div>
+
+    </div>
+
   </div>
-
-  <!-- Photo 2 -->
-  <div class="relative">
-    <img src="memory2.jpg"
-         class="w-56 aspect-square object-contain rounded-lg shadow-md bg-white p-2" />
-    <div class="absolute -bottom-2 -left-2 text-xl">✨</div>
-  </div>
-
-  <!-- Photo 3 -->
-  <div class="relative">
-    <img src="memory3.jpg"
-         class="w-56 aspect-square object-contain rounded-lg shadow-md bg-white p-2" />
-    <div class="absolute -top-2 -left-2 text-lg">💋</div>
-  </div>
-
-  <!-- Photo 4 -->
-  <div class="relative">
-    <img src="memory4.jpg"
-         class="w-56 aspect-square object-contain rounded-lg shadow-md bg-white p-2" />
-  </div>
-
 </div>
+
 
         
        </div><!-- Decorative doodles -->
@@ -571,6 +583,7 @@
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9cac76b834d8855b',t:'MTc3MDU2NzcyNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 
 </html>
+
 
 
 
