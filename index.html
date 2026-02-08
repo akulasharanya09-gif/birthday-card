@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" class="h-full">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,98 +7,100 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 <style>
-body {
-  font-family: 'Caveat', cursive;
-  margin: 0;
-  background: linear-gradient(135deg, #f5e5e3, #f9f0e6);
-  overflow-x: hidden;
-}
-.font-handwritten { font-family: 'Caveat', cursive; }
-.font-elegant { font-family: 'Playfair Display', serif; }
+  body { box-sizing: border-box; font-family: 'Caveat', cursive; }
+  .font-handwritten { font-family: 'Caveat', cursive; }
+  .font-elegant { font-family: 'Playfair Display', serif; }
 
-/* Animations */
-@keyframes float {0%,100%{transform:translateY(0) rotate(-2deg);}50%{transform:translateY(-10px) rotate(2deg);}}
-@keyframes heartbeat {0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
-@keyframes flapOpen {0%{transform:rotateX(0deg);}100%{transform:rotateX(160deg);}}
-@keyframes slideOutDown {0%{transform:translateY(0);opacity:1;}100%{transform:translateY(120vh);opacity:0;}}
-@keyframes slideInUp {0%{transform:translateY(120vh);opacity:0;}100%{transform:translateY(0);opacity:1;}}
+  /* Animations */
+  @keyframes float {0%,100%{transform:translateY(0) rotate(-2deg);}50%{transform:translateY(-10px) rotate(2deg);}}
+  @keyframes sparkle {0%,100%{opacity:0;transform:scale(0);}50%{opacity:1;transform:scale(1);}}
+  @keyframes heartbeat {0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
+  @keyframes flapOpen {0%{transform:rotateX(0deg);}100%{transform:rotateX(160deg);}}
+  @keyframes slideOutDown {0%{transform:translateY(0);opacity:1;}100%{transform:translateY(120vh);opacity:0;}}
+  @keyframes slideInUp {0%{transform:translateY(120vh);opacity:0;}100%{transform:translateY(0);opacity:1;}}
+  @keyframes confetti-fall {0%{transform:translateY(-100%) rotate(0deg);opacity:1;}100%{transform:translateY(100%) rotate(720deg);opacity:0;}}
 
-/* Envelope */
-.envelope-float { animation: float 3s ease-in-out infinite; cursor:pointer; }
-.envelope-flap { transform-origin: center center; transform-style: preserve-3d; perspective: 1200px; }
-.envelope-animating .envelope-flap { animation: flapOpen 2s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
-.envelope-animating #envelope-page { animation: slideOutDown 2.2s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
-#card-container.showing { animation: slideInUp 2s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
+  .envelope-float { animation: float 3s ease-in-out infinite; }
+  .sparkle { animation: sparkle 2s ease-in-out infinite; }
+  .heartbeat { animation: heartbeat 1.5s ease-in-out infinite; }
+  .envelope-flap { transform-origin: center center; transform-style: preserve-3d; perspective: 1200px; }
+  .envelope-animating .envelope-flap { animation: flapOpen 2s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
+  .envelope-animating #envelope-page { animation: slideOutDown 2.2s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
+  #card-container.showing { animation: slideInUp 2s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
 
-/* Confetti */
-.confetti {
-  position: fixed;
-  width: 10px;
-  height: 10px;
-  background: red;
-  opacity: 0;
-  animation: confetti-fall 3s linear infinite;
-}
-@keyframes confetti-fall {
-  0% { transform: translateY(-100%) rotate(0deg); opacity:1;}
-  100% { transform: translateY(100vh) rotate(720deg); opacity:0;}
-}
+  /* Aesthetic red-beige magical background */
+  body { background: linear-gradient(135deg, #f5e5e3, #f9f0e6); }
+  #app { background: radial-gradient(circle at top left, #fce4e1, #f5f0e6); }
+
+  .confetti { position: absolute; width:10px; height:10px; opacity:0; }
 </style>
 </head>
-<body>
+<body class="h-full overflow-auto">
 
-<!-- Music -->
+<!-- Audio -->
 <audio id="birthday-song" loop>
   <source src="song.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
 </audio>
-<button id="music-btn" onclick="toggleMusic()" class="fixed bottom-5 right-5 px-4 py-2 bg-red-600 text-white rounded-full shadow-lg font-handwritten text-2xl">❤️</button>
 
-<div id="app" class="w-full h-full">
+<!-- Play/Pause Heart Button -->
+<button id="music-btn" onclick="toggleMusic()" 
+  class="fixed bottom-5 right-5 px-4 py-2 bg-red-600 text-white rounded-full shadow-lg font-handwritten text-2xl">
+  ❤️
+</button>
+
+<div id="app" class="w-full h-full overflow-auto">
   <!-- Envelope Page -->
-  <div id="envelope-page" class="w-full min-h-screen flex flex-col items-center justify-center p-8">
-    <div class="text-center mb-6 text-gray-700 font-handwritten text-2xl">✨ A special surprise awaits... ✨</div>
-    <div id="envelope" class="envelope-float relative" onclick="openEnvelope()" style="width:320px;height:240px;">
-      <!-- Body -->
-      <div class="absolute inset-0 rounded-sm shadow-2xl" style="background: linear-gradient(180deg,#f4e8d0 0%,#e8dcc0 100%);border:2px solid #8b7355;"></div>
+  <div id="envelope-page" class="w-full min-h-full flex flex-col items-center justify-center p-8">
+    <div class="text-center mb-6"><span class="font-handwritten text-2xl text-gray-700">✨ A special surprise awaits... ✨</span></div>
+    <div id="envelope" class="envelope-float cursor-pointer relative" onclick="openEnvelope()" style="width:320px;height:240px;">
+      <!-- Envelope Body -->
+      <div class="absolute inset-0 rounded-sm shadow-2xl" style="background: linear-gradient(180deg,#f4e8d0 0%,#e8dcc0 100%);border:2px solid #8b7355;">
+        <div class="absolute inset-0 opacity-5" style="background-image: repeating-linear-gradient(0deg,#333 0px,#333 1px,transparent 1px,transparent 2px);"></div>
+      </div>
       <!-- Flap -->
-      <div class="envelope-flap absolute top-0 left-0 right-0" style="height:120px;">
+      <div class="envelope-flap absolute top-0 left-0 right-0" style="height:120px; perspective:1000px;">
         <svg viewBox="0 0 320 120" class="w-full h-full drop-shadow-lg">
           <defs>
             <linearGradient id="retroFlap" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" style="stop-color:#f4e8d0"/>
-              <stop offset="100%" style="stop-color:#ddd1bb"/>
+              <stop offset="0%" style="stop-color:#f4e8d0" />
+              <stop offset="100%" style="stop-color:#ddd1bb" />
             </linearGradient>
           </defs>
           <path d="M0,120 L160,10 L320,120 Z" fill="url(#retroFlap)" stroke="#8b7355" stroke-width="2"/>
+          <line x1="160" y1="10" x2="160" y2="120" stroke="#8b7355" stroke-width="1" opacity="0.3"/>
         </svg>
       </div>
-      <p class="font-handwritten text-xl text-gray-600 mt-6 animate-pulse text-center">Click the envelope to open! 💌</p>
+      <p class="font-handwritten text-xl text-gray-600 mt-6 animate-pulse">Click the envelope to open! 💌</p>
     </div>
   </div>
 
-  <!-- Card Container -->
-  <div id="card-container" class="hidden w-full min-h-screen p-6">
-    <!-- Page 1 -->
-    <div id="page-1" class="page w-full min-h-screen flex flex-col items-center justify-center">
-      <div class="relative w-full max-w-2xl p-8 rounded-2xl shadow-2xl bg-gradient-to-tr from-[#f5e5e3] to-[#f9f0e6] border-2 border-[#d4a8a3] text-center">
-        <div class="font-elegant font-bold text-gray-900 text-5xl">
-          Happy Birthday<br>
-          <span style="color:#c41e3a;font-size:5rem;">Gayathri Akkaaa!!!</span>
+  <!-- Card Pages -->
+  <div id="card-container" class="hidden w-full min-h-full">
+    <!-- Page 1: Greeting -->
+    <div id="page-1" class="page w-full min-h-full flex flex-col items-center justify-center p-4 page-transition">
+      <div class="relative w-full max-w-2xl p-8 rounded-2xl shadow-2xl" style="background: linear-gradient(145deg,#f5e5e3 0%,#f9f0e6 100%);border:2px solid #d4a8a3;">
+        <div class="text-center py-8 px-6">
+          <div class="font-elegant font-bold text-gray-900 leading-tight" style="font-size:clamp(2.5rem,12vw,4rem);">
+            Happy Birthday<br><span id="recipient-display" class="block" style="color:#c41e3a;font-size:clamp(3rem,14vw,5rem);">Gayathri Akkaaa!!!</span>
+          </div>
+          <div class="mt-6 flex justify-center gap-2 flex-wrap">
+            <span class="text-3xl">🎂</span><span class="text-3xl">🎉</span><span class="text-3xl">🎁</span><span class="text-3xl">🎈</span>
+          </div>
         </div>
-        <div class="mt-6 flex justify-center gap-2 flex-wrap text-3xl">
-          🎂 🎉 🎁 🎈
-        </div>
-        <button onclick="nextPage(2)" class="mt-8 font-handwritten text-xl text-gray-700 hover:text-gray-900 flex items-center gap-2">Continue reading → 💌</button>
+        <button onclick="nextPage(2)" class="mt-8 font-handwritten text-xl text-gray-700 hover:text-gray-900 transition-colors flex items-center gap-2"> Continue reading → 💌 </button>
       </div>
     </div>
 
-    <!-- Page 2: Letter + Reel -->
-    <div id="page-2" class="page hidden w-full min-h-screen p-6">
+    <!-- Page 2: Letter + Photo Reel -->
+    <div id="page-2" class="page hidden w-full min-h-full p-6 page-transition">
       <div class="w-full max-w-4xl mx-auto flex flex-col md:flex-row gap-6 items-stretch">
         <!-- Letter -->
-        <div class="flex-1 p-6 rounded-2xl shadow-xl bg-gradient-to-tr from-[#f5e5e3] to-[#f9f0e6] border-2 border-[#d4a8a3]">
-          <div class="text-center mb-4 text-2xl">💌 <h2 class="font-elegant text-2xl font-bold text-gray-900">A Letter For You</h2></div>
-          <div class="font-handwritten text-xl text-gray-800 leading-relaxed space-y-4">
+        <div class="flex-1 p-6 rounded-2xl shadow-xl" style="background: linear-gradient(145deg,#f5e5e3 0%,#f9f0e6 100%);border:2px solid #d4a8a3;">
+          <div class="text-center mb-4"><span class="text-2xl">💌</span>
+            <h2 class="font-elegant text-2xl font-bold text-gray-900">A Letter For You</h2>
+          </div>
+          <div class="font-handwritten text-xl text-gray-800 leading-relaxed space-y-4" id="letter-display">
             <p>Dearest Gayathri Akka,</p>
             <p>On your special day, I wanted to tell you how much you mean to us. You're not just our akka, you're our friend, our guide, and our biggest cheerleader! 💕</p>
             <p>Every moment spent with you is filled with laughter, love, and unforgettable memories. You make everything brighter just by being you!</p>
@@ -107,86 +109,75 @@ body {
             <p class="text-right mt-6">With all our love,<br>Laasya and Sharanya 😉💗</p>
           </div>
         </div>
-        <!-- Reel -->
+        <!-- Photo Reel -->
         <div class="w-full md:w-48 flex flex-col items-center">
-          <img src="Reel1.jpg" class="w-[160px] h-[160px] object-contain rounded-xl mb-4 shadow-lg mx-auto"/>
-          <img src="Reel2.jpg" class="w-[160px] h-[160px] object-contain rounded-xl mb-4 shadow-lg mx-auto"/>
-          <img src="Reel3.jpg" class="w-[160px] h-[160px] object-contain rounded-xl mb-4 shadow-lg mx-auto"/>
+          <div class="reel-container w-full">
+            <div class="flex justify-between px-2 mb-2">
+              <div class="reel-hole"></div><div class="reel-hole"></div><div class="reel-hole"></div><div class="reel-hole"></div>
+            </div>
+            <img src="Reel1.jpg" class="w-[160px] h-[160px] object-contain rounded-xl mb-4 shadow-lg mx-auto" />
+            <div class="flex justify-between px-2 mb-2">
+              <div class="reel-hole"></div><div class="reel-hole"></div><div class="reel-hole"></div><div class="reel-hole"></div>
+            </div>
+            <img src="Reel2.jpg" class="w-[160px] h-[160px] object-contain rounded-xl mb-4 shadow-lg mx-auto" />
+            <div class="flex justify-between px-2 mb-2">
+              <div class="reel-hole"></div><div class="reel-hole"></div><div class="reel-hole"></div><div class="reel-hole"></div>
+            </div>
+            <img src="Reel3.jpg" class="w-[160px] h-[160px] object-contain rounded-xl mb-4 shadow-lg mx-auto" />
+            <div class="flex justify-between px-2 mt-2">
+              <div class="reel-hole"></div><div class="reel-hole"></div><div class="reel-hole"></div><div class="reel-hole"></div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="text-center mt-6">
-        <button onclick="nextPage(3)" class="font-handwritten text-xl text-gray-700 hover:text-gray-900">See more memories → 📸</button>
+        <button onclick="nextPage(3)" class="font-handwritten text-xl text-gray-700 hover:text-gray-900 transition-colors"> See more memories → 📸 </button>
       </div>
     </div>
 
-    <!-- Page 3: Gallery -->
-    <div id="page-3" class="page hidden w-full min-h-screen p-6">
-      <div class="w-full max-w-3xl mx-auto text-center mb-6">
-        <h2 class="font-elegant text-3xl font-bold text-gray-900">Our Beautiful Memories 💕</h2>
+    <!-- Page 3: Photo Gallery -->
+    <div id="page-3" class="page hidden w-full min-h-full p-6 page-transition">
+      <div class="w-full max-w-3xl mx-auto">
+        <div class="text-center mb-6">
+          <h2 class="font-elegant text-3xl font-bold text-gray-900">Our Beautiful Memories 💕</h2>
+        </div>
+        <div class="grid grid-cols-2 gap-6">
+          <div class="relative"><img src="memory1.jpg" class="w-full aspect-square object-contain rounded-lg shadow-md bg-white p-2" /><div class="absolute -top-2 -right-2 text-xl">💗</div></div>
+          <div class="relative"><img src="memory2.jpg" class="w-full aspect-square object-contain rounded-lg shadow-md bg-white p-2" /><div class="absolute -bottom-2 -left-2 text-xl">✨</div></div>
+          <div class="relative"><img src="memory3.jpg" class="w-full aspect-square object-contain rounded-lg shadow-md bg-white p-2" /><div class="absolute -top-2 -left-2 text-lg">💋</div></div>
+          <div class="relative"><img src="memory4.jpg" class="w-full aspect-square object-contain rounded-lg shadow-md bg-white p-2" /></div>
+        </div>
       </div>
-      <div class="grid grid-cols-2 gap-6">
-        <img src="memory1.jpg" class="w-full rounded-lg shadow-md"/>
-        <img src="memory2.jpg" class="w-full rounded-lg shadow-md"/>
-        <img src="memory3.jpg" class="w-full rounded-lg shadow-md"/>
-        <img src="memory4.jpg" class="w-full rounded-lg shadow-md"/>
-      </div>
-      <div class="text-center mt-6"><button onclick="nextPage(4)" class="font-handwritten text-xl text-gray-700 hover:text-gray-900">One more surprise → 🎁</button></div>
+      <div class="text-center mt-6"><button onclick="nextPage(4)" class="font-handwritten text-xl text-gray-700 hover:text-gray-900 transition-colors"> One more surprise → 🎁 </button></div>
     </div>
 
-    <!-- Page 4: Final Wishes -->
-    <div id="page-4" class="page hidden w-full min-h-screen p-6 text-center">
-      <h2 class="font-elegant text-3xl font-bold text-gray-900 mb-4">Birthday Wishes 💖</h2>
-      <p class="font-handwritten text-xl text-gray-700 mb-4">May your year ahead be as beautiful and bright as your smile!</p>
-      <p class="font-handwritten text-xl text-gray-700 mb-4">You deserve all the cake, gifts, and love in the world! 🎂</p>
-      <p class="font-handwritten text-xl text-gray-700 mb-4">Thank you for being the most amazing akka! Love you to the moon and back! 🌙💗</p>
-      <div class="flex justify-center gap-2 mt-4 text-3xl">
-        <span class="heartbeat">💗</span>
-        <span class="heartbeat" style="animation-delay:0.2s;">💗</span>
-        <span class="heartbeat" style="animation-delay:0.4s;">💗</span>
-      </div>
-      <div class="mt-6">
-        <button onclick="restart()" class="px-6 py-3 rounded-full font-handwritten text-xl text-white shadow-lg bg-red-600 hover:bg-red-700 transition-all">🔄 Watch Again</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-// Music
-function toggleMusic() {
-  const audio = document.getElementById('birthday-song');
-  if(audio.paused) audio.play();
-  else audio.pause();
-}
-
-// Envelope animation
-function openEnvelope() {
-  const envelopePage = document.getElementById('envelope-page');
-  envelopePage.classList.add('envelope-animating');
-  setTimeout(() => {
-    document.getElementById('card-container').classList.remove('hidden');
-    document.getElementById('card-container').classList.add('showing');
-  }, 2200);
-}
-
-// Page navigation
-let currentPage = 1;
-function nextPage(page) {
-  document.getElementById(`page-${currentPage}`).classList.add('hidden');
-  document.getElementById(`page-${page}`).classList.remove('hidden');
-  currentPage = page;
-}
-
-// Restart
-function restart() {
-  document.getElementById('card-container').classList.add('hidden');
-  document.getElementById('envelope-page').classList.remove('envelope-animating');
-  currentPage = 1;
-  document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
-  document.getElementById('page-1').classList.remove('hidden');
-}
-</script>
-
-</body>
-</html>
+    <!-- Page 4: Final Messages -->
+    <div id="page-4" class="page hidden w-full min-h-full p-6 page-transition">
+      <div class="w-full max-w-2xl mx-auto">
+        <div class="text-center mb-6">
+          <span class="text-4xl">🎂</span>
+          <h2 class="font-elegant text-3xl font-bold text-gray-900 mt-2">Birthday Wishes</h2>
+          <p class="font-handwritten text-xl text-gray-600">Just for you, Gayathri Akka! 💗</p>
+        </div>
+        <div class="space-y-4">
+          <div class="p-5 rounded-xl shadow-lg transform hover:scale-102 transition-transform" style="background: linear-gradient(145deg,#f5e5e3 0%,#f9f0e6 100%);border:2px solid #d4a8a3;">
+            <div class="flex items-start gap-3"><span class="text-2xl">🌟</span><p class="font-handwritten text-xl text-gray-800">May your year ahead be as beautiful and bright as your smile! Keep shining, akka!</p></div>
+          </div>
+          <div class="p-5 rounded-xl shadow-lg transform hover:scale-102 transition-transform" style="background: linear-gradient(145deg,#f5e5e3 0%,#f9f0e6 100%);border:2px solid #d4a8a3;">
+            <div class="flex items-start gap-3"><span class="text-2xl">💕</span><p class="font-handwritten text-xl text-gray-800">You deserve all the cake, all the gifts, and ALL the love in the world! (But especially the cake 🎂😋)</p></div>
+          </div>
+          <div class="p-5 rounded-xl shadow-lg transform hover:scale-102 transition-transform" style="background: linear-gradient(145deg,#f5e5e3 0%,#f9f0e6 100%);border:2px solid #d4a8a3;">
+            <div class="flex items-start gap-3"><span class="text-2xl">🎈</span><p class="font-handwritten text-xl text-gray-800">Thank you for being the most amazing akka anyone could ask for. I'm so lucky to have you!</p></div>
+          </div>
+          <div class="p-5 rounded-xl shadow-lg transform hover:scale-102 transition-transform" style="background: linear-gradient(145deg,#f5e5e3 0%,#f9f0e6 100%);border:2px solid #d4a8a3;">
+            <div class="flex items-start gap-3"><span class="text-2xl">🎁</span><p class="font-handwritten text-xl text-gray-800" id="final-message-display">Here's to more adventures, more laughs, more memories, and more late-night talks! Love you to the moon and back! 🌙💗</p></div>
+          </div>
+          <div class="p-6 rounded-2xl shadow-xl text-center mt-6" style="background: linear-gradient(145deg,#f5e5e3 0%,#f9f0e6 100%);border:3px solid #c41e3a;">
+            <p class="font-elegant text-2xl font-bold text-gray-900">Happy Birthday, Gayathri Akka!</p>
+            <p class="font-handwritten text-xl text-gray-700 mt-2">🎂 May all your dreams come true! 🎂</p>
+            <div class="flex justify-center gap-2 mt-4"><span class="text-3xl heartbeat">💗</span><span class="text-3xl heartbeat" style="animation-delay:0.2s;">💗</span><span class="text-3xl heartbeat" style="animation-delay:0.4s;">💗</span></div>
+          </div>
+        </div>
+        <div class="text-center mt-8"><button onclick="restart()" class="px-6 py-3 rounded-full font-handwritten text-xl text-white shadow-lg hover:shadow-xl transition-all" style="background: linear-gradient(135deg, #c41e3a 0%, #a01830 100%);"> 🔄 Watch Again </button></div>
+        <div class="flex justify-center gap-6 mt-6"><span class="text-2xl sparkle">✨</span><span class="text-2xl sparkle" style="animation-delay:0.3s;"></span><span class="text-2xl sparkle" style="animation-delay:0.6s;">🎊</span><span class="text-
 
