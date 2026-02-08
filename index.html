@@ -329,54 +329,39 @@
      <div class="text-center mt-6"><button onclick="nextPage(3)" class="font-handwritten text-xl text-gray-700 hover:text-gray-900 transition-colors"> See more memories → 📸 </button>
      </div>
     </div><!-- Page 3: Photo Gallery -->
-    <div id="page-3" class="page hidden w-full min-h-full p-6 page-transition">
-     <div class="w-full max-w-3xl mx-auto">
-      <div class="text-center mb-6">
-       <h2 class="font-elegant text-3xl font-bold text-gray-900">Our Beautiful Memories 💕</h2>
-       <p class="font-handwritten text-xl text-gray-600 mt-2">Every picture tells our story...</p>
-      </div>
-      <div class="p-6 rounded-2xl shadow-xl" style="background: linear-gradient(145deg, #f5f0e6 0%, #ebe3d5 100%); border: 2px solid #d4c4a8;"><!-- Photo grid -->
-       <div class="grid grid-cols-2 gap-4"><!-- Photo 1 -->
-        <div class="relative">
-         <img src="memory1.jpg" class="w-60 h-56 object-contain rounded-lg shadow-md" />
-          <div class="text-center"><span class="text-4xl">📷</span>
-           <p class="font-handwritten text-gray-700 mt-2">Memory 1</p>
-          </div>
-         </div>
-         <div class="absolute -top-2 -right-2 text-xl">
-          💗
-         </div>
-        </div><!-- Photo 2 -->
-        <div class="relative">
-         <img src="memory2.jpg" class="w-60 h-56 object-contain rounded-lg shadow-md" />
-          <div class="text-center"><span class="text-4xl">📸</span>
-           <p class="font-handwritten text-gray-700 mt-2">Memory 2</p>
-          </div>
-         </div>
-         <div class="absolute -bottom-2 -left-2 text-xl">
-          ✨
-         </div>
-        </div><!-- Photo 3 -->
-        <div class="relative">
-         <img src="memory3.jpg" class="w-60 h-56 object-contain rounded-lg shadow-md" />
-          <div class="text-center"><span class="text-4xl">🎬</span>
-           <p class="font-handwritten text-gray-700 mt-2">Memory 3</p>
-          </div>
-         </div>
-         <div class="absolute -top-2 -left-2 text-lg kiss-mark">
-          💋
-         </div>
-        </div><!-- Photo 4 -->
-        <div class="relative">
-         <img src="memory4.jpg" class="w-60 h-56 object-contain rounded-lg shadow-md" />
-          <div class="text-center"><span class="text-4xl">📷</span>
-           <p class="font-handwritten text-gray-700 mt-2">Memory 4</p>
-          </div>
-         </div>
-         <div class="absolute -bottom-2 -right-2 text-xl">
-          🌟
-         </div>
-        </div>
+    <!-- Photo grid -->
+<div class="grid grid-cols-2 gap-6">
+
+  <!-- Photo 1 -->
+  <div class="relative">
+    <img src="memory1.jpg"
+         class="w-56 aspect-square object-contain rounded-lg shadow-md bg-white p-2" />
+    <div class="absolute -top-2 -right-2 text-xl">💗</div>
+  </div>
+
+  <!-- Photo 2 -->
+  <div class="relative">
+    <img src="memory2.jpg"
+         class="w-56 aspect-square object-contain rounded-lg shadow-md bg-white p-2" />
+    <div class="absolute -bottom-2 -left-2 text-xl">✨</div>
+  </div>
+
+  <!-- Photo 3 -->
+  <div class="relative">
+    <img src="memory3.jpg"
+         class="w-56 aspect-square object-contain rounded-lg shadow-md bg-white p-2" />
+    <div class="absolute -top-2 -left-2 text-lg">💋</div>
+  </div>
+
+  <!-- Photo 4 -->
+  <div class="relative">
+    <img src="memory4.jpg"
+         class="w-56 aspect-square object-contain rounded-lg shadow-md bg-white p-2" />
+  </div>
+
+</div>
+
+        
        </div><!-- Decorative doodles -->
        <div class="flex justify-center gap-4 mt-6"><span class="text-2xl">🎂</span> <span class="text-2xl">🎈</span> <span class="text-2xl">🎁</span> <span class="text-2xl">🎉</span>
        </div>
@@ -586,6 +571,7 @@
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9cac76b834d8855b',t:'MTc3MDU2NzcyNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 
 </html>
+
 
 
 
